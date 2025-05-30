@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuevo Estudiante</title>
+  <style>
+    form { max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 1rem; }
+    input, select { width: 100%; padding: 0.5rem; }
+    button { margin-top: 1rem; padding: 0.75rem 1.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Crear Nuevo Estudiante</h1>
+  <form action="/students" method="POST">
+    <label>Nombre:
+      <input type="text" name="firstName" required minlength="2" />
+    </label>
+    <label>Apellido:
+      <input type="text" name="lastName" required minlength="2" />
+    </label>
+    <label>Correo:
+      <input type="email" name="email" required />
+    </label>
+    <label>Género:
+      <select name="gender" required>
+        <option value="">– Selecciona –</option>
+        <option value="MALE">Masculino</option>
+        <option value="FEMALE">Femenino</option>
+        <option value="OTHER">Otro</option>
+      </select>
+    </label>
+    <label>Cursos (múltiple):
+      <select name="courseIds" multiple size="5" required>
+        <% courses.forEach(c => { %>
+          <option value="<%= c.id %>">
+            <%= c.title %> [<%= c.code %>]
+          </option>
+        <% }) %>
+      </select>
+    </label>
+    <button type="submit">Crear Estudiante</button>
+  </form>
+  <p style="text-align:center;margin-top:2rem;">
+    <a href="/students">← Volver al índice</a>
+  </p>
+</body>
+</html>

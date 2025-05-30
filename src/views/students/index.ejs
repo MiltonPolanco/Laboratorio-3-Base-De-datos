@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Índice de Inscripciones</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 0.5rem; border: 1px solid #ccc; }
+    th { background: #f0f0f0; }
+    a.action { margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Inscripciones de Estudiantes</h1>
+  <p><a href="/students/new">➕ Nuevo Estudiante</a></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Estudiante</th>
+        <th>Email</th>
+        <th>Género</th>
+        <th>Curso</th>
+        <th>Código</th>
+        <th>Nivel</th>
+        <th>Fecha inscripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.forEach(r => { %>
+        <tr>
+          <td><%= r.firstName %> <%= r.lastName %></td>
+          <td><%= r.email %></td>
+          <td><%= r.gender %></td>
+          <td><%= r.title %></td>
+          <td><%= r.code %></td>
+          <td><%= r.level %></td>
+          <td><%= new Date(r.enrolledAt).toLocaleString() %></td>
+          <td>
+            <a class="action" href="/students/<%= r.studentId %>/edit">✏️ Editar</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

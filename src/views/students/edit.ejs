@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Estudiante</title>
+  <style>
+    form { max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 1rem; }
+    input, select { width: 100%; padding: 0.5rem; }
+    .actions { margin-top: 1.5rem; }
+    .actions button,
+    .actions a { margin-right: 1rem; }
+    .delete-btn { margin-top: 2rem; background: #c00; color: #fff; padding: 0.5rem 1rem; border: none; }
+  </style>
+</head>
+<body>
+  <h1>Editar Estudiante</h1>
+  <form action="/students/<%= student.id %>" method="POST">
+    <label>Nombre:
+      <input type="text" name="firstName" value="<%= student.firstName %>" required minlength="2" />
+    </label>
+    <label>Apellido:
+      <input type="text" name="lastName" value="<%= student.lastName %>" required minlength="2" />
+    </label>
+    <label>Correo:
+      <input type="email" name="email" value="<%= student.email %>" required />
+    </label>
+    <label>Género:
+      <select name="gender" required>
+        <option value="">– Selecciona –</option>
+        <option value="MALE"   <%= student.gender==='MALE'   ? 'selected' : '' %>>Masculino</option>
+        <option value="FEMALE" <%= student.gender==='FEMALE' ? 'selected' : '' %>>Femenino</option>
+        <option value="OTHER"  <%= student.gender==='OTHER'  ? 'selected' : '' %>>Otro</option>
+      </select>
+    </label>
+    <label>Cursos (múltiple):
+      <select name="courseIds" multiple size="5" required>
+        <% courses.forEach(c => { %>
+          <option value="<%= c.id %>" <%= enrolledCourseIds.includes(c.id) ? 'selected' : '' %>>
+            <%= c.title %> [<%= c.code %>]
+          </option>
+        <% }) %>
+      </select>
+    </label>
+    <div class="actions">
+      <button type="submit">Guardar Cambios</button>
+      <a href="/students">← Volver sin guardar</a>
+    </div>
+  </form>
+
+  <form action="/students/<%= student.id %>/delete" method="POST" onsubmit="return confirm('¿Eliminar este estudiante?');">
+    <button type="submit" class="delete-btn">Eliminar Estudiante</button>
+  </form>
+</body>
+</html>
